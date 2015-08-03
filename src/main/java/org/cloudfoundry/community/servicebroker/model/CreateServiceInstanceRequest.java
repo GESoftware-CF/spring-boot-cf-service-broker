@@ -1,5 +1,7 @@
 package org.cloudfoundry.community.servicebroker.model;
 
+import java.util.Map;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.*;
@@ -33,6 +35,10 @@ public class CreateServiceInstanceRequest {
 	@JsonSerialize
 	@JsonProperty("space_guid")
 	private String spaceGuid;
+
+	@JsonSerialize
+	@JsonProperty("parameters")
+	private Map<String, Object> parameters;
 
 	//Cloud Controller dosen't send the definition, it's populated later
 	@JsonIgnore
@@ -87,7 +93,15 @@ public class CreateServiceInstanceRequest {
 	public String getServiceInstanceId() { 
 		return serviceInstanceId;
 	}
-	
+
+    public Map<String, Object> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Map<String, Object> parameters) {
+        this.parameters = parameters;
+    }
+
 	public CreateServiceInstanceRequest withServiceDefinition(ServiceDefinition svc) {
 		this.serviceDefinition = svc;
 		return this;
